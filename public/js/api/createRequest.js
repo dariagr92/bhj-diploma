@@ -3,5 +3,39 @@
  * на сервер.
  * */
 const createRequest = (options = {}) => {
+    const xhr = new XMLHttpRequest;
+    xhr.responseType = 'json';
 
+    let url = options.url;
+    const formData = new FormData();
+
+    if (options.data){
+        if (options.method === 'GET'){
+            url += '?' + Object.entries(options.data).map(
+                ([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join('&');
+            } else {
+                Object.entries(options.data).forEach(v => formData.append(...v));
+            }
+    }
+
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE){
+            let err = null;
+            let resp = null;
+
+            if (xhr.status === 200){
+                const result = xhr.response;
+                    if (result && result.success){
+                        resp = result;
+                    } 
+            } else {
+                err = new Error ('Произошла ошибка');
+            }
+                options.callback(err, resp);
+        }
+    }
+    
+
+    xhr.open(options.method, url);
+    xhr.send(formData);
 };
