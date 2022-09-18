@@ -14,7 +14,12 @@ class AccountsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-
+    if (!element){
+      throw new Error('Элемент отсутствует');
+    }
+    this.element = element;
+    this.registerEvents();
+    this.update();
   }
 
   /**
@@ -25,7 +30,12 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-
+    document.querySelector('.create-account').onclick = () => {
+      App.getModal('createAccount').open();
+    }
+    this.element.addEventListener('click', e => {
+      this.onSelectAccount(e.target);
+    });
   }
 
   /**
@@ -39,7 +49,14 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-
+    if (User.current()) {
+      Accounts.list(User.current(), (err, resp) => {
+        if (resp && resp.data){
+          this.clear();
+          this.renderItem(resp.data);
+        };
+      });
+    }
   }
 
   /**
@@ -48,7 +65,7 @@ class AccountsWidget {
    * в боковой колонке
    * */
   clear() {
-
+   this.element.querySelectorAll('.account').forEach(el => el.remove);
   }
 
   /**
@@ -68,6 +85,7 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML(item){
+    return 
 
   }
 
