@@ -37,7 +37,6 @@ const createRequest = (options = {}) => {
             }
     };
     
-
     xhr.open(options.method, url);
     xhr.send(formData);
 };

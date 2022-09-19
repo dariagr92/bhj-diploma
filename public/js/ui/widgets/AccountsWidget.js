@@ -50,10 +50,10 @@ class AccountsWidget {
    * */
   update() {
     if (User.current()) {
-      Account.list(User.current(), (err, response) => {
-        if (response && response.data){
+      Account.list(User.current(), (err, resp) => {
+        if (resp && resp.data){
           this.clear();
-          this.renderItem(response.data);
+          this.renderItem(resp.data);
         };
       });
     }

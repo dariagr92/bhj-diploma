@@ -29,7 +29,6 @@ class Modal {
       btn.onclick = e => {
         this.onClose(e);
     };
-    
     });
   }
 

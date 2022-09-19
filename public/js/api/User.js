@@ -4,6 +4,7 @@
  * Имеет свойство URL, равное '/user'.
  * */
 class User {
+  static URL = '/user';
   /**
    * Устанавливает текущего пользователя в
    * локальном хранилище.
@@ -34,16 +35,16 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(callback) {
-    createRequest ({
+    createRequest({
       url: this.URL + '/current',
       method: 'GET',
-      callback: (err, response) => {
-        if (response && response.user) {
-          this.setCurrent(response.user);
+      callback: (err, resp) => {
+        if (resp && resp.user) {
+          this.setCurrent(resp.user);
         } else {
           this.unsetCurrent();
         }
-        callback(err, response);
+        callback(err, resp);
       }
     });
   }
@@ -58,12 +59,13 @@ class User {
     createRequest({
       url: this.URL + '/login',
       method: 'POST',
+      responseType: 'json',
       data,
-      callback: (err, response) => {
-        if (response && response.user) {
-          this.setCurrent(response.user);
+      callback: (err, resp) => {
+        if (resp && resp.user) {
+          this.setCurrent(resp.user);
         }
-        callback(err, response);
+        callback(err, resp);
       }
     });
   }
@@ -79,11 +81,11 @@ class User {
       url: this.URL + '/register',
       method: 'POST',
       data,
-      callback: (err, response) => {
-        if (response && response.user) {
-          this.setCurrent(response.user);
+      callback: (err, resp) => {
+        if (resp && resp.user) {
+          this.setCurrent(resp.user);
         }
-        callback(err, response);
+        callback(err, resp);
       }
     });
   }
@@ -96,14 +98,14 @@ class User {
     createRequest({
       url: this.URL + '/logout',
       method: 'POST',
-      callback: (err, response) => {
-        if (response && response.user) {
+      callback: (err, resp) => {
+        if (resp && resp.user) {
           this.unsetCurrent();
         }
-        callback(err, response);
+        callback(err, resp);
       }
     });
   }
 }
 
-User.URL = '/user';
+//User.URL = '/user';
