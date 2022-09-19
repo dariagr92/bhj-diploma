@@ -50,10 +50,10 @@ class AccountsWidget {
    * */
   update() {
     if (User.current()) {
-      Accounts.list(User.current(), (err, resp) => {
-        if (resp && resp.data){
+      Account.list(User.current(), (err, response) => {
+        if (response && response.data){
           this.clear();
-          this.renderItem(resp.data);
+          this.renderItem(response.data);
         };
       });
     }
@@ -65,7 +65,7 @@ class AccountsWidget {
    * в боковой колонке
    * */
   clear() {
-   this.element.querySelectorAll('.account').forEach(el => el.remove);
+   this.element.querySelectorAll('.account').forEach(el => el.remove());
   }
 
   /**
@@ -76,7 +76,13 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-
+    Array.from(element.closest('.accounts-panel').querySelectorAll('.account')).forEach(el => {
+      el.classList.remove('active');
+    });
+    if (element.closest('.account')) {
+      element.closest('.account').classList.add('active');
+      App.showPage('transactions', { account_id: element.closest('.account').dataset.id });
+    }
   }
 
   /**
@@ -85,8 +91,12 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML(item){
-    return 
-
+    return `<li class="account" data-id="${item.id}">
+            <a href="#">
+            <span>${item.name}</span> /
+            <span>${item.sum} ₽</span>
+            </a>
+            </li>`;
   }
 
   /**
@@ -96,6 +106,8 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem(data){
-
+    data.forEach(el => {
+      this.element.insertAdjacentHTML('beforeend', this.getAccountHTML(el));
+    });
   }
 }

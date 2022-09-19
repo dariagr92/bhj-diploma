@@ -3,14 +3,14 @@
  * на сервер.
  * */
 const createRequest = (options = {}) => {
-    const xhr = new XMLHttpRequest;
-    xhr.responseType = 'json';
+    const xhr = new XMLHttpRequest();
+    xhr.responseType='json';
 
     let url = options.url;
     const formData = new FormData();
 
-    if (options.data){
-        if (options.method === 'GET'){
+    if (options.data) {
+        if (options.method === 'GET') {
             url += '?' + Object.entries(options.data).map(
                 ([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join('&');
             } else {
@@ -23,16 +23,18 @@ const createRequest = (options = {}) => {
             let err = null;
             let resp = null;
 
-            if (xhr.status === 200){
+            if (xhr.status === 200) {
                 const result = xhr.response;
-                    if (result && result.success){
+                    if (result && result.success) {
                         resp = result;
-                    } 
+                    } else {
+                        err = result;
+                    }
             } else {
-                err = new Error ('Произошла ошибка');
-            }
+                err = new Error('Произошла ошибка');
+            }    
                 options.callback(err, resp);
-        }
+            }
     }
     
 
