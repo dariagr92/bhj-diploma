@@ -4,7 +4,7 @@
  * */
 const createRequest = (options = {}) => {
     const xhr = new XMLHttpRequest();
-    xhr.responseType='json';
+    xhr.responseType = 'json';
 
     let url = options.url;
     const formData = new FormData();
@@ -19,7 +19,7 @@ const createRequest = (options = {}) => {
     }
 
     xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE){
+        if (xhr.readyState === XMLHttpRequest.DONE) {
             let err = null;
             let resp = null;
 
@@ -35,7 +35,7 @@ const createRequest = (options = {}) => {
             }    
                 options.callback(err, resp);
             }
-    }
+    };
     
 
     xhr.open(options.method, url);

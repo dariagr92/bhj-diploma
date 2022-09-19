@@ -17,7 +17,6 @@ class Modal {
     }
     this.element = element;
     this.registerEvents();
-
   }
 
   /**

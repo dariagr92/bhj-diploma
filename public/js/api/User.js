@@ -43,7 +43,6 @@ class User {
         } else {
           this.unsetCurrent();
         }
-
         callback(err, response);
       }
     });
