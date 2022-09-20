@@ -18,25 +18,17 @@ const createRequest = (options = {}) => {
             }
     }
 
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            let err = null;
-            let resp = null;
-
-            if (xhr.status === 200) {
-                const result = xhr.response;
-                    if (result && result.success) {
-                        resp = result;
-                    } else {
-                        err = result;
-                    }
-            } else {
-                err = new Error('Произошла ошибка');
-            }    
-                options.callback(err, resp);
-            }
+    try {
+        xhr.open(options.method, url);
+        xhr.send(formData);
+    } catch (e) {
+        options.callback(e, null);
     };
-    
-    xhr.open(options.method, url);
-    xhr.send(formData);
-};
+    xhr.onload = () => {
+        options.callback(null, xhr.response);
+    };
+    xhr.onerror = () => {
+        options.callback(xhr.statusText, null)
+    }
+};    
+           
