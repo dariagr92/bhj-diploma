@@ -9,6 +9,7 @@ class CreateTransactionForm extends AsyncForm {
    * */
   constructor(element) {
     super(element)
+    this.renderAccountsList();
   }
 
   /**
@@ -16,7 +17,12 @@ class CreateTransactionForm extends AsyncForm {
    * Обновляет в форме всплывающего окна выпадающий список
    * */
   renderAccountsList() {
-
+    Account.list(null, (err, resp) => {
+      if (resp && resp.success){
+        //доделать!!!!
+      }
+    }
+    )
   }
 
   /**
@@ -26,6 +32,13 @@ class CreateTransactionForm extends AsyncForm {
    * в котором находится форма
    * */
   onSubmit(data) {
+    Transaction.create(data, (err, resp) => {
+      if (resp && resp.success){
+        this.element.reset();
+        App.getModal('newIncome').close();
+        App.update();
+      }
+    })
 
   }
 }
