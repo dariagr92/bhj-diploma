@@ -11,6 +11,30 @@
       "email": "vasya@vasya",
       "password": "vasya",
       "id": "cb1q6j4rol8a9r1z5"
+    },
+    {
+      "name": "dar",
+      "email": "dar@dar",
+      "password": "dar",
+      "id": "cb1q6j9vwl8b3ibhy"
+    },
+    {
+      "name": "Дарья",
+      "email": "darya@darya",
+      "password": "darya",
+      "id": "cb1q6jbacl8b3tx81"
+    },
+    {
+      "name": "Иван",
+      "email": "ivan@ivan",
+      "password": "ivan",
+      "id": "cb1q6jg7sl8b4wuqm"
+    },
+    {
+      "name": "Jane",
+      "email": "same@same",
+      "password": "same",
+      "id": "cb1q6jdrcl8b5epdf"
     }
   ],
   "accounts": [
@@ -28,6 +52,36 @@
       "name": "Бизнес",
       "user_id": "1",
       "id": "3"
+    },
+    {
+      "name": "Еда",
+      "user_id": "1",
+      "id": "cb1q6j9vwl8b3dgp3"
+    },
+    {
+      "name": "еда",
+      "user_id": "cb1q6j9vwl8b3ibhy",
+      "id": "cb1q6jbacl8b3ov4u"
+    },
+    {
+      "name": "коммунальные",
+      "user_id": "cb1q6j9vwl8b3ibhy",
+      "id": "cb1q6jbacl8b3p01k"
+    },
+    {
+      "name": "Тинькофф",
+      "user_id": "cb1q6jbacl8b3tx81",
+      "id": "cb1q6jbacl8b3u72u"
+    },
+    {
+      "name": "Сбербанк",
+      "user_id": "cb1q6jbacl8b3tx81",
+      "id": "cb1q6jbacl8b3uavo"
+    },
+    {
+      "name": "альфа",
+      "user_id": "cb1q6jg7sl8b4wuqm",
+      "id": "cb1q6j5y4l8b57r1k"
     }
   ],
   "transactions": [
@@ -165,6 +219,15 @@
       "sum": 300000,
       "type": "expense",
       "user_id": "1"
+    },
+    {
+      "id": "cb1q6jbacl8b3pac4",
+      "type": "income",
+      "name": "пицца",
+      "sum": 500,
+      "account_id": "cb1q6jbacl8b3ov4u",
+      "user_id": "cb1q6j9vwl8b3ibhy",
+      "created_at": "2022-09-21T04:04:11.284Z"
     }
   ]
 }

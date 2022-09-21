@@ -59,11 +59,11 @@ class TransactionsPage {
       return;
     }
     if (confirm('Вы уверены, что хотите удалить счет?')){
-      this.removeAccount.remove({id: this.lastOptions.account_id}, (err, resp) => {
+      Account.remove({id: this.lastOptions.account_id}, (err, resp) => {
         if (resp && resp.success){
           App.updateWidgets();
           App.updateForms();
-          this.clear;
+          this.clear();
         }
       });
     }
@@ -77,7 +77,7 @@ class TransactionsPage {
    * */
   removeTransaction(id) {
     if (confirm('Вы уверены, что хотите удалить эту транзакцию?')){
-      Transaction.remove(id, (err, resp) => {
+      Transaction.remove({id}, (err, resp) => {
         if (resp && resp.success){
           App.update(); 
         }
@@ -141,13 +141,13 @@ class TransactionsPage {
    * item - объект с информацией о транзакции
    * */
   getTransactionHTML(item){
-    return `<div class="transaction transaction_expense row">
+    return `<div class="transaction transaction_${item.type} row">
               <div class="col-md-7 transaction__details">
                 <div class="transaction__icon">
                   <span class="fa fa-money fa-2x"></span>
                 </div>
                 <div class="transaction__info">
-                  <h4 class="transaction__title">Новый будильник</h4>
+                  <h4 class="transaction__title">${item.name}</h4>
                   <div class="transaction__date">${this.formatDate(item.created_at)}</div>
                 </div>
               </div>
@@ -169,11 +169,10 @@ class TransactionsPage {
    * используя getTransactionHTML
    * */
   renderTransactions(data){
-    const content = this.element.querySelector('.content').innerHTML
-     content = '';
+    this.element.querySelector('.content').innerHTML = "";
     if (data) {
       data.forEach(el => {
-        content.insertAdjacentHTML('beforeend', this.getTransactionHTML(el));
+        this.element.querySelector('.content').insertAdjacentHTML('beforeend', this.getTransactionHTML(el));
       });
     }
   };
